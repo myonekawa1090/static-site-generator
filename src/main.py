@@ -2,7 +2,7 @@ import textnode
 
 def main():
     print("Hello, World!")
-    tn = textnode.TextNode("This is some text", textnode.TextType.linktext, "http://example.com")
+    tn = textnode.TextNode("This is some text", textnode.TextType.URL, "http://example.com")
     tn.__repr__()
     
     
