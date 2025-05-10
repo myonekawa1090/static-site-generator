@@ -10,21 +10,15 @@ class HTMLNode:
         raise NotImplementedError()
     
     def props_to_html(self): 
-        if self.props is None: 
+        if self.props is None:
             return ""
-        
-        props_str = ""
-        for key, value in self.props.items(): 
-            if isinstance(value, str): 
-                props_str += f'{key}="{value}" '
-            elif isinstance(value, list): 
-                props_str += f' {key}="{" ".join(value)}"'
-            else: 
-                raise ValueError(f"Unsupported prop type: {type(value)}")
-        return props_str
+        props_html = ""
+        for prop in self.props:
+            props_html += f' {prop}="{self.props[prop]}"'
+        return props_html
  
     def __repr__(self): 
-        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
+        return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
         
 class LeafNode(HTMLNode): 
     def __init__(self, tag=None, value=None, props=None): 
@@ -36,6 +30,7 @@ class LeafNode(HTMLNode):
         if self.tag is None: 
             return self.value
         props_str = self.props_to_html()
+        
         return f"<{self.tag}{props_str}>{self.value}</{self.tag}>"
         
 class ParentNode(HTMLNode): 
